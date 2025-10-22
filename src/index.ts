@@ -20,6 +20,7 @@ app.use(bodyParser.json());
 let lastNotifiedEvents = new Set<string>();
 
 app.post("/register", async (req, res) => {
+    console.log("Register request received:", req.body);
     const { deviceId } = req.body;
 
     if (!deviceId) {
@@ -51,6 +52,8 @@ app.post("/register", async (req, res) => {
 });
 
 app.post("/update-fcm-token", async (req, res) => {
+    console.log("Update FCM token request received:", req.body);
+    
     const { deviceId, fcmToken } = req.body;
 
     if (!deviceId || !fcmToken)
