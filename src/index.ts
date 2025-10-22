@@ -4,6 +4,7 @@ import admin from "firebase-admin";
 import dotenv from "dotenv";
 import { getNextRaceSchedule, isEventInNextWeekend, RaceSchedule } from "./jolpica";
 import cron from "node-cron";
+import cors from "cors";
 
 dotenv.config();
 
@@ -18,6 +19,13 @@ const app = express();
 app.use(bodyParser.json());
 
 let lastNotifiedEvents = new Set<string>();
+
+app.use(cors({
+  origin: [
+    "https://rmsr2004.github.io"
+  ],
+  methods: ["GET", "POST"],
+}));
 
 app.post("/register", async (req, res) => {
     console.log("Register request received:", req.body);
@@ -53,7 +61,7 @@ app.post("/register", async (req, res) => {
 
 app.post("/update-fcm-token", async (req, res) => {
     console.log("Update FCM token request received:", req.body);
-    
+
     const { deviceId, fcmToken } = req.body;
 
     if (!deviceId || !fcmToken)
