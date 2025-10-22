@@ -158,8 +158,9 @@ cron.schedule("*/5 * * * *", async () => {
     });
 });
 
-cron.schedule("*/2 * * * *", async () => {
+cron.schedule("*/1 * * * *", async () => {
     await sendToAllUsers({ title: "🚀 Keep Racing!", body: "Stay tuned for more updates and live coverage!" });
+    console.log("Sent keep-alive notification to all users.");
 });
 
 const PORT = process.env.PORT || 3000;
